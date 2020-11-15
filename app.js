@@ -33,9 +33,10 @@ spotifyApi
   .catch((error) => console.log('Something went wrong when retrieving an access token', error));
 
 // ROUTES
-app.get('/Search', (req, res) => {
+app.get('/search', (req, res) => {
   res.render('Search');
 });
+
 app.get('/artist-search', (req, res) => {
   spotifyApi
     .searchArtists(req.query.artistSearch)
@@ -47,9 +48,8 @@ app.get('/artist-search', (req, res) => {
 
 app.get('/albums/:artistId', (req, res) => {
   spotifyApi
-    .getArtistAlbums('29psHKjl8Ah0m232bq9x9J')
+    .getArtistAlbums(req.params.artistId)
     .then((data) => {
-      //console.log(data.body.items);
       res.render('Albums', data.body);
     })
     .catch((err) => console.log('Error while searching album occurred: ', err));
